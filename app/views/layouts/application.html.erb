@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ShareHouse</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <script type="text/javascript">
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+  heap.load("502944281");
+</script>
+</head>
+<body>
+<% flash.each do |name, msg| %>
+  <% if msg.is_a?(String) %>
+
+
+<% if name.to_s == 'notice' %>
+  <script type="text/javascript">alertify.success('<%= msg%>');</script>
+  <%else%>
+ <script type="text/javascript">alertify.error('<%= msg%>');</script>
+<%end%>
+
+
+
+  <% end %>
+<% end %>
+	<nav class="navbar navbar-default navbar-static-top" style="height: 60px; padding-top: 4px;">
+	  <div class="container" style="">
+	    <div class="navbar-header">
+	      <p class="navbar-brand" ><a onclick="window.location.assign('/');" href="#" style="color: white ; text-decoration: none;"> Share House </a></p>
+	    </div>
+
+	    <ul class="nav navbar-nav navbar-right">
+	    <% if user_signed_in?  and current_user.admin%>
+	      <li>		
+
+	      <button class="btn btn-primary" type="button" id="post-pad" onclick="window.location.assign('<%= "/admin" %>');" style="margin-right: 5px;margin-top: 9px;color: white;"><span class=""></span>Admin</button></li>
+	      <%end%>
+	        <li>			      
+	      <button class="btn btn-primary" type="button" id="post-pad" onclick="window.location.assign('<%= new_home_path %>');" style="margin-right: 5px;margin-top: 9px;color: white;">Post space for free!</button></li>
+	      <li>
+	      
+	      <li>
+	      <% if user_signed_in? %>
+      	      <button class="btn btn-primary" id="logout-button" onclick="destroy()" style="color: white;"><span class="glyphicon glyphicon-log-in" ></span> Logout</button>
+	      <% else %>
+	      <button class="btn btn-primary" id="login-button" onclick="window.location.assign('<%= new_user_session_path %>');" style="color: white;"><span class="glyphicon glyphicon-user" ></span> Login</button>
+	      <% end %>
+	      </li>
+
+	    </ul>
+
+	    <!-- <div class="col-md-3 col-md-offset-3">
+	    	<form class="navbar-form" role="search">
+				<div class="input-group">
+				<input type="text" class="form-control" id="search-input" placeholder="Search Location" name="srch-term">
+				<div class="input-group-btn">
+				    <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+				</div>
+				</div>
+			</form> 
+	    </div> -->
+	  </div>	
+	</nav>
+
+	<!-- <div class="navbar-collapse collapse navbar-inverse" id="simple-bar">
+		<div class="container">
+			<ul class="nav navbar-nav links" style="margin-left: -120px;">
+		    	<li ><a href="/" id="show-map" >Map</a></li>
+		    	<li><a href="<%= homes_path %>" id="show-list">List</a></li>
+		    </ul>
+
+		    <ul class="nav navbar-nav navbar-right" style="margin-top: 8px">
+		      <li>			      <button class="btn btn-default" type="button" id="post-pad" onclick="window.location.assign('<%= new_home_path %>');" style="margin-right: 5px;"><span class="glyphicon glyphicon-plus"></span>&nbspPost</button></li>
+
+
+			  <li><button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Filter</button>
+
+
+				  <div class="modal fade" id="myModal" role="dialog">
+				    <div class="modal-dialog">
+				      <div class="modal-content">
+				        <div class="modal-header">
+				          <button type="button" class="close" data-dismiss="modal">&times;</button>
+				          <h4 class="modal-title">Filter</h4>
+				        </div>
+				        <div class="modal-body">
+			            	<form role="form">
+
+							  <div class="form-group">
+							    <label>Select home type</label>
+							    <select class="form-control" id="select_type" >
+							    	<option value="">Choose</option>
+								    <option value="apartment">Apartment</option>
+								    <option value="house">House</option>
+								    <option value="other">Other</option>
+								</select>
+							  </div>
+							  <div  class="form-group">
+							  	<div class=" col-md-6">
+							  		<input type="number" id="price_min" value="0" class="form-control" placeholder="Min Price" >
+							  	</div>
+							  	<div class=" col-md-6">
+							  		<input type="number" id="price_max" value="10000" class="form-control" placeholder="Max Price" >
+							  	</div>
+							  	
+							    
+							  </div>
+
+							  	<div class="form-group" >
+							  		<label class="control-label"></label>
+								  	<div class="checkbox">
+									  <label><input type="checkbox" value="true" id="internet">Internet</label>
+									</div>
+									<div class="checkbox">
+									  <label><input type="checkbox" value="true" id="tv">TV</label>
+									</div>
+									<div class="checkbox">
+									  <label><input type="checkbox" value="true" id="laundry">Laundry</label>
+									</div>
+									<div class="checkbox">
+									  <label><input type="checkbox" value="true" id="air_cond">Air-Conditioning</label>
+									</div>
+									<div class="checkbox">
+									  <label><input type="checkbox" value="true" id="heater">Heater</label>
+									</div>
+									<div class="checkbox">
+									  <label><input type="checkbox" value="true" id="parking">Parking</label>
+									</div>
+								</div>
+
+								<div class="form-group">
+							  		<label class="form-control">Minimum days stayed?</label>
+									<div class="radio">
+									  <label><input type="radio" name="min_days" value="1 day">1 day</label>
+									</div>
+									<div class="radio">
+									  <label><input type="radio" name="min_days" value="2-6 days">2-6 days</label>
+									</div>
+									<div class="radio">
+									  <label><input type="radio" name="min_days" value="1 week or more">1 week or more</label>
+									</div>
+								</div>
+
+								<div class="form-group">
+							  		<label class="form-control">Bond required?</label>
+									<div class="checkbox">
+									  <label><input type="checkbox" value="true" id="bond">Bond</label>
+									</div>
+								</div>
+
+								<div class="form-group">
+							  		<label class="form-control">House has pets?</label>
+									<div class="checkbox">
+									  <label><input type="checkbox" value="true" id="pets">Pets</label>
+									</div>
+								</div>
+							</form>
+				        </div>
+				        <div class="modal-footer">
+				          <button type="button" class="btn btn-success" id="submitfilter" onclick="filterhome()">Filter</button>
+				          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+			  </li>
+		    </ul>
+		</div>    
+	</div>  --><!-- 
+<style type="text/css">
+	
+</style>
+<div class="full">
+	<div id="sec-nav" class="container">
+		<div class="row">
+			<div class="col-md-4">
+				<ul>
+					<li class="active"><a href="">Map</a></li>
+					<li><a href="">List</a></li>
+				</ul>
+			</div>
+			<div class="col-md-4 col-md-offset-4 text-right button-post">
+				<button class="btn btn-default" type="button" id="post-pad">Post a pad</button>
+				<button class="btn btn-default" type="button" id="filter">Filters</button>
+			</div>
+		</div>
+	</div>
+	</div>
+ -->
+ <!-- <div id="map"></div>
+ <div id="list" class="hidden"></div> -->
+ <script type="text/javascript">
+ 	function destroy() {
+      	$.ajax({
+		   url: '<%= destroy_user_session_path %>', 
+		   error: function() {
+		      console.log("Error!");
+		   },
+		   success: function(data) {
+		      location.reload();
+		   },
+		   type: 'DELETE'
+		});
+	}
+
+	function filterhome(){
+		$('#myModal').modal('hide');
+/*		var select = document.getElementById('select_type').value;
+		console.log("type "+select);
+		var price = document.getElementById('price_max').value;
+		console.log("price "+price);
+		var internet = document.getElementById('internet').checked;
+		console.log("internet " + internet);
+		var tv = document.getElementById('tv').checked;
+		console.log("tv " + tv);
+		var laundry = document.getElementById('laundry').checked;
+		console.log("laundry " + laundry);
+		var air_cond = document.getElementById('air_cond').checked;
+		console.log("Air-Conditioning " + air_cond);
+		var heater = document.getElementById('heater').checked;
+		console.log("heater " + heater);
+		var parking = document.getElementById('parking').checked;
+		console.log("parking " + parking);
+		var bond = document.getElementById('bond').checked;
+		console.log("bond " + bond);
+		var min_days_v;
+		var min_days = document.getElementsByName('min_days');
+		for (var i = 0; i < min_days.length; i++) {
+		    if (min_days[i].checked) {
+		        min_days_v = min_days[i].value;
+		        break;
+		    }else{
+
+		    }
+		}
+		console.log("Min days " + min_days_v);
+		var pets = document.getElementById('pets').checked;
+		console.log("pets " + pets);
+
+
+		$.ajax({
+		   url: 'filter_homes/', 
+		   data: {typ: select,price: price,internet: internet,tv: tv,laundry: laundry, air: air_cond, heater: heater, parking: parking, bond: bond,min_days: min_days_v,pets: pets},
+		   error: function() {
+		      console.log("Error!");
+		   },
+		   success: function(data) {
+		      for(i=0 ; i<data.length;i++){
+                  console.log(data[i]);
+                  position = new google.maps.LatLng(data[i].lat,data[i].long);
+                  //img_sel = new google.maps.MarkerImage('images/p.png');
+                  marker1 = new google.maps.Marker({
+                    position: position,
+                    map: map
+
+                  });
+                  infowindow = new google.maps.InfoWindow();
+                }
+		   },
+		   type: 'GET'
+		});*/
+
+	}
+
+	/*$("#show-list").click(function(){
+		$("#show-map").removeClass('active');
+    	$("#map").hide();
+		$("#list").removeClass('hidden')
+			.show()
+    	$("#show-list").addClass('active');
+    	window.location.assign('<%= homes_path %>');
+
+	});
+
+	
+	$("#show-map").click(function(){
+		$("#show-map").addClass('active');
+    	$("#list").hide();
+    	$("#map").show();
+    	$("#show-list").removeClass('active');
+
+	});*/
+
+	
+	
+ </script>
+ 
+	<%= yield %>
+
+</body>
+</html>

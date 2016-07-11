@@ -1,0 +1,272 @@
+<div class="container">
+
+<%= form_for @home,multiple: true do |f| %>
+    <div class="row">
+      <% if @home.errors.any? %>
+        <div class="alert alert-danger">
+          <ul>
+            <% @home.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="col-md-6">
+        <div class="shadowme">
+          <h4 class="text-center">Contact Details</h4>
+          <div class="form-group label-floating">
+            <%= label(:title, "House name" , :class => "control-label") %>
+            <%= f.text_field :title, :class=>"form-control",autofocus: true %>
+          </div>
+          <div class="form-group label-floating">
+            <%= label(:contact, "Contact Number" , :class => "control-label") %>
+            <%= f.text_field :contact, :class=>"form-control",autofocus: true %>
+          </div>
+          <div class="form-group label-floating">
+            <%= label(:email, "Email" , :class => "control-label") %>
+            <%= f.text_field :email, :class=>"form-control",autofocus: true %>
+          </div>
+          <div class="form-group label-floating">
+            <%= label(:website, "URL" , :class => "control-label") %>
+            <%= f.text_field :website, :class=>"form-control",autofocus: true %>
+          </div>
+        </div>
+
+        
+        <div class="shadowme">
+          <h4 class="text-center">Describe your place</h4>
+          <%= f.text_area :description, rows: 8 , maxlength: 500 ,:placeholder => "In 500 word(s) or less" , :class=>"form-control",autofocus: true %>
+        </div>
+        <div class="shadowme" >
+          <h4 class="text-center">Price per week from (NZD)
+              <!-- <span class="input-group-addon">
+                <i class="material-icons">help outline</i>
+              </span> -->
+          </h4>
+          <div class="form-group">
+              <%= f.text_field :rate, :placeholder => "$XXXXX" ,:class=>"form-control",autofocus: true %>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-6">
+        <div class="shadowme form-group">
+          <h4 class="text-center">Amenities (Check if available)</h4>
+          <label class="control-label"></label>
+          <div class="checkbox">
+            <%= f.label "internet"  do %>
+            <%= f.check_box :internet %>
+            Internet
+            <% end %>
+          </div>
+          <div class="checkbox">
+            <%= f.label "heater"  do %>
+            <%= f.check_box :heater %>
+            Heating
+            <% end %>
+          </div>
+          <div class="checkbox">
+            <%= f.label "laundry"  do %>
+            <%= f.check_box :laundry %>
+            Laundry
+            <% end %>
+          </div>
+          <div class="checkbox">
+            <%= f.label "tv"  do %>
+            <%= f.check_box :tv %>
+            Kitchen
+            <% end %>
+          </div>
+          <div class="checkbox">
+            <%= f.label "parking"  do %>
+            <%= f.check_box :parking %>
+            Free parking
+            <% end %>
+          </div>
+          <div class="checkbox">
+            <%= f.label "air_cond"  do %>
+            <%= f.check_box :air_cond %>
+            Smoking allowed
+            <% end %>
+          </div>
+        </div>
+        <div class="shadowme form-group" style="padding-top: 20px;">
+          <label class="control-label"></label>
+          <div class="checkbox">
+            <%= f.label "pets"  do %>
+            <%= f.check_box :pets %>
+            House has pets? (Check if available)
+            <% end %>
+          </div>
+        </div>
+        <div class="shadowme" >
+          <h4 class="text-center">Enter your location</h4>
+          <div class="form-group label-floating">
+            <%= f.label(:address, "Full address, including postal code" , :class => "control-label")%>
+            <%= f.text_field :address,:id => 'addressbar' ,:placeholder => "" ,:class=>"form-control",autofocus: true %>  
+          </div>
+        </div>
+        <!-- <div class="shadowme text-center" >
+          <h4>Click to upload image(s)</h4>
+          <%= f.fields_for :photo do |p| %>
+           <div class="field fileUpload btn btn-primary btn-raised">
+             <span class="text-center">Upload</span>
+             <%= p.file_field :photo, :id => "uploadBtn" , :class => "upload" ,:multiple => true, name: "photo[image][]", style: "margin-top:20px;" %>
+           </div>
+           <span class="glyphicon glyphicon-ok hidden" style="color: #8BC34A;" id="spani"></span>
+          <% end %>
+        </div> -->
+        <div class="t text-center">
+          <%= f.submit "Update space for free!",:class=>"btn btn-primary btn-raised btn-lg" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+<!--       <div class="row flipeffect" style="margin-top:55px;">
+      <div class="col-md-6 col-md-offset-3 ">
+        <div class="panel panel-login signup-form-body">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-xs-6 col-xs-offset-3">
+                <a href="#" class="active" id="forgot-password-link">Update a house</a>
+              </div>
+            </div>
+            <hr>
+          </div>
+          <div class="panel-body ">
+            <div class="row">
+              <div class="col-lg-12">
+
+                <%= form_for @home,multiple: true do |f| %>
+                  <% if @home.errors.any? %>
+                    <div class="alert alert-danger">
+                      <ul>
+                        <% @home.errors.full_messages.each do |msg| %>
+                          <li><%= msg %></li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  <% end %>
+                  <div class="form-group">
+                    <%= f.text_field :title,placeholder: 'Enter Listing title', :class=>"form-control",autofocus: true %>
+                  </div>
+                  <div class="form-group">
+                  <fieldset class="form-control">
+                    <%= label(:h_type, "Select home type ") %>
+                    <%= f.select :h_type, [['Choose',""], ['Apartment', "apartment"] , ['House', "house"] , ['Other', "other"]] %>
+                  </fieldset>
+                  </div>   
+                  <div class="form-group">
+                    <fieldset class="form-control">
+                      <%= f.label "House facilities (check those available)"  %>
+                    </fieldset>
+                    <fieldset>
+                      <%= f.check_box :internet %>
+                      <%= f.label "Internet "  %>
+                      <%= f.check_box :tv %>
+                      <%= f.label "TV "  %>
+                      <%= f.check_box :laundry %>
+                      <%= f.label "Laundry "  %>
+                      <%= f.check_box :air_cond %>
+                      <%= f.label "Air-Conditioning "  %>
+                      <%= f.check_box :heater %>
+                      <%= f.label "Heater "  %>
+                      <%= f.check_box :parking %>
+                      <%= f.label "Parking"  %>
+                      
+                    </fieldset>
+                    </div>
+                  <div class="form-group">
+                    <fieldset class="form-control" >
+                      <%= f.label(:bond, "Bond required? ") %>
+
+                      <%= f.radio_button(:bond, "True") %>
+                      <%= label(:bond_true, "Yes") %>
+
+                      <%= f.radio_button(:bond, "False") %>
+                      <%= label(:bond_false, "No") %>
+
+                    </fieldset>
+                  </div>
+                  <div class="form-group">
+                    <fieldset class="form-control">
+                      <%= label(:pets, "House has pets? (Dogs, cats, birds, etc.) ") %>
+
+                      <%= f.radio_button(:pets, "True") %>
+                      <%= label(:pets_true, "Yes") %>
+
+                      <%= f.radio_button(:pets, "False") %>
+                      <%= label(:pets_false, "No") %>
+                    </fieldset>
+                  </div>
+                  <div class="form-group">
+                    <fieldset class="form-control">
+                      <%= label(:min_stay, "Minimum days stayed? ") %>
+
+                      <%= f.radio_button(:min_stay, "1 day") %>
+                      <%= label(:min_stay_1, "1 day") %>
+
+                      <%= f.radio_button(:min_stay, "2-6 days") %>
+                      <%= label(:min_stay_2to6, "2-6 days") %>
+
+                      <%= f.radio_button(:min_stay, "1 week or more") %>
+                      <%= label(:min_stay_1weekormore, "1 week or more") %>
+                    </fieldset>
+                  </div>
+                  <div class="form-group">
+                    <%= f.text_field :rate,placeholder: 'Price per week (NZD)', :class=>"form-control",autofocus: true %>
+                  </div>
+                  <div class="form-group">
+                    <%= f.text_field :description,placeholder: 'More information about the place (flavor text)', :class=>"form-control",autofocus: true %>
+                  </div>
+                  <div class="form-group">
+                    <%= f.text_field :host,placeholder: 'Host name', :class=>"form-control",autofocus: true %>
+                  </div>
+                  <div class="form-group">
+                    <%= f.text_field :contact,placeholder: 'Contact number (mobile)', :class=>"form-control",autofocus: true %>
+                  </div>
+                  <div class="form-group">
+                    <%= f.text_field :email,placeholder: 'Email address', :class=>"form-control",autofocus: true %>
+                  </div>
+                  <div class="form-group">
+                    <%= f.text_field :website,placeholder: 'URL (Facebook page, website, etc.)', :class=>"form-control",autofocus: true %>
+                  </div>
+                  <div class="form-group">
+                    <%= f.text_field :address,placeholder: 'Address (Google maps, geocode)',:id => 'addressbar' ,:class=>"form-control",autofocus: true %>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-control">
+                                            <%= f.fields_for :photo do |p| %>
+     <div class="field">
+       <%= p.label "Images (Maximum 4)" %><br>
+       <%= p.file_field :photo, :multiple => true, name: "photo[image][]", style: "margin-top:20px;" %>
+     </div>
+   <% end %>
+                    </div>
+                  </div>  
+                  <div class="form-group">
+                    <div class="row" style="margin-top: 60px;">
+                      <div class="col-sm-6 col-sm-offset-3 actions">
+                        <%= f.submit "Update",:class=>"btn btn-lg btn-primary btn-block" %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+  <script type="text/javascript">
+    function initialize() {
+      var input_address = document.getElementById('addressbar');
+      var autocompleteaddress = new google.maps.places.Autocomplete(input_address);
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+  </script>
+  

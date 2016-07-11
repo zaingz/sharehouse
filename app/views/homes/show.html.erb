@@ -1,0 +1,136 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 shadowme">
+			<h1><%= @home.title.capitalize %> - <span class="text-muted">$<%= @home.rate %></span></h1>
+			<h5><%= @home.address %></h5>
+			<h4><%= @home.description %></h4>
+			<h4><%= mail_to @home.email %></a></h4>
+			<h4><%= @home.contact %></h4>
+			<br>
+
+<div class="card card-raised card-carousel" id="carousel-mine" style="height: 330px; overflow: hidden;">
+	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+		<div class="carousel slide" data-ride="carousel">
+
+			<!-- Indicators -->
+		  	<ol class="carousel-indicators">
+			 	<% @home.photos.each_with_index do |p,i| %>
+				    <li data-target="#carousel-example-generic" data-slide-to="<%=i%>" class="<%= i==0?"active": " "%>"></li>
+			    <%end%>
+			</ol>
+
+			<!-- Wrapper for slides -->
+			<div class="carousel-inner">
+					<% @home.photos.each_with_index do |p,i| %>
+					    <div class="<%=i==0?"item active": "item"%>">
+					      <%= image_tag p.image_url%>
+					    </div>
+					<%end%>
+			</div>
+
+			<!-- Controls -->
+			<a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+				<!-- <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> -->
+			</a>
+			<a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+				<!-- <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> -->
+			</a>
+		</div>
+	</div>
+</div>
+<!-- End Carousel Card -->
+
+
+<!-- <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  	
+  	<ol class="carousel-indicators">
+	 	<% @home.photos.each_with_index do |p,i| %>
+		    <li data-target="#carousel-example-generic" data-slide-to="<%=i%>" class="<%= i==0?"active": " "%>"></li>
+	    <%end%>
+	</ol>
+
+  
+  <div class="carousel-inner" role="listbox">
+    <% @home.photos.each_with_index do |p,i| %>
+	    <div class="<%=i==0?"item active": "item"%>">
+	      <%= image_tag p.image_url%>
+	    </div>
+	<%end%>
+  </div>
+
+  
+  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+		</div>
+		<div class="col-md-5 shadowme" style="float: right;">
+			<h3 style="margin-top: 25px">Details </h3>
+			<ul class="list-group show_hom">
+			    <!-- <li class="list-group-item"><strong>Price: </strong><span style="float: right;">$<%= @home.rate %></span></li> -->
+			    <!-- <li class="list-group-item"><strong>Min. Lease: </strong><span style="float: right;"><%= @home.min_stay %></span></li> -->
+			    <li class="list-group-item"><strong>Internet: </strong><span style="float: right;"><%= @home.internet ? "Yes" : "No"%></span></li>
+			    <li class="list-group-item"><strong>Heating: </strong><span style="float: right;"><%= @home.heater ? "Yes" : "No"%></span></li>
+			    <li class="list-group-item"><strong>Laundry: </strong><span style="float: right;"><%= @home.laundry ? "Yes" : "No"%></span></li>
+			    <li class="list-group-item"><strong>Kitchen: </strong><span style="float: right;"><%= @home.tv ? "Yes" : "No"%></span></li>
+			    <li class="list-group-item"><strong>Free parking: </strong><span style="float: right;"><%= @home.parking ? "Yes" : "No"%></span></li>
+			    <li class="list-group-item"><strong>Smoking allowed: </strong><span style="float: right;"><%= @home.air_cond ? "Yes" : "No"%></span></li>
+			    <li class="list-group-item"><strong>Pets: </strong><span style="float: right;"><%= @home.pets ? "Yes" : "No"%></span></li>
+			    <!-- <li class="list-group-item"><strong>Bond: </strong><span style="float: right;"><%= @home.bond ? "Yes" : "No"%></span></li> -->
+			</ul>
+		</div>		
+	</div>
+	<input class="hidden"  id="latfromhome" value="<%= @home.lat %>"></input>
+	<input class="hidden" id="longfromhome" value="<%= @home.long %>"></input>
+</div>
+<div class="container" style="padding: 0px;">
+	<div class="row shadowme">
+		<h3 class="hidden">&nbsp;&nbsp;Location</h3>
+		<div class="col-md-12" id="mapforshow"></div>
+	</div>
+</div>
+<script type="text/javascript">
+	document.getElementById("carousel-mine").onchange = function () {
+        $("#carousel-mine").removeClass("shadowme");
+    };
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
+<script>
+
+  function initMap() {
+  	var lat = document.getElementById("latfromhome").value;
+  	var long = document.getElementById('longfromhome').value;
+  	var lati = parseFloat(lat);
+  	var longi = parseFloat(long);	
+  	console.log("lat: "+lat + " long: " + long);
+    var mapDiv = document.getElementById('mapforshow');
+    var map = new google.maps.Map(mapDiv, {
+      center: {lat: lati, lng: longi},
+      zoom: 16
+    });
+    position = new google.maps.LatLng(lati,longi);
+	marker1 = new google.maps.Marker({
+	    position: position,
+	    map: map
+	});
+  }
+
+  	
+</script>

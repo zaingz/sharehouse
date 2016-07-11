@@ -1,0 +1,143 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "home";
+@import "signuplogin";
+@import "jquery.nstSlider.min";
+@import "alertify";
+@import "alertify.default";
+
+@import "alertify.bootstrap";
+
+@import "alertify.core";
+@import "show";
+@import "material-kit";
+
+
+#simple-bar{
+			background-color: #333;
+			margin-top: -21px;
+		}
+#login-button{
+	margin-top: 9px;
+}
+#logout-button{
+	margin-top: 9px;
+}
+
+body{
+	background-color: #CFD8DC;
+	font-family: 'Futura';
+	scrollbar-base-color: orange; 
+	scrollbar-arrow-color: green;
+	scrollbar-DarkShadow-Color: blue; 
+}
+
+#list::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+	border-radius: 10px;
+}
+
+#list::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+#list::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-image: -webkit-gradient(linear,
+									   left bottom,
+									   left top,
+									   color-stop(0.44, rgb(122,153,217)),
+									   color-stop(0.72, rgb(73,125,189)),
+									   color-stop(0.86, rgb(28,58,148)));
+}
+
+
+#simple-bar{
+	ul{
+		.active{
+			
+			a{color: white;
+				border-radius: 4px;
+				background-color: #337ab7 !important;
+			}
+		}
+		
+	}
+}
+
+
+.shadowme{
+	box-shadow: 0 1px 3px 0 #707070, 0 1px 1px 0 #adadad;
+	background-color: white;
+    margin: 20px 0px; 
+    padding: 40px;
+}
+
+
+/*.full{width: 100%;background-color: #CCC;margin-top: -21px}
+#sec-nav{
+	
+	padding-top: 10px;
+	ul{display: inline-flex;
+		margin:0;
+		padding: 0;
+		li{	
+			
+			text-decoration: none;
+			margin-right: 40px;
+			margin-bottom: 10px;
+			list-style-type: none;
+				a{padding: 10px 10px; }
+		}
+		.active{
+			border-radius: 4px;
+			background-color: #337ab7;
+			a{color: white;}
+		}
+	}
+	.button-post{
+		border-bottom-width: 0px;
+	    padding-top: 3px;
+	    padding-bottom: 3px;
+	    margin-bottom: 7px;
+	}
+}*/
+
+
+.navbar{
+	border-radius: 0px;
+	color: white;
+
+	box-shadow: 0 12px 12px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload .upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.full-width-button{
+	width: 100%;
+}
+
+@font-face {
+  font-family: 'Futura';
+  src:url('Futura_ICG_Book_Oblique.ttf') format('truetype');
+}
